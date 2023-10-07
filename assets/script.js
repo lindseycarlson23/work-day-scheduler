@@ -28,7 +28,12 @@
 
 // handle displaying the time
 var dateDisplayElem = $("#currentDay");
-var hour9 = $("#hour-9");
+
+// var hour9Input = $("#hour-9");
+var taskInput = document.getElementById("taskInput");
+var saveButton = document.getElementById("saveButton");
+var hourTime = document.getElementById("hourTime");
+// var eventsDisplayElem = $('#')
 
 
 function displayDate() {
@@ -44,9 +49,58 @@ displayDate();
 //     // time-block containing the button that was clicked? How might the id be
 //     // useful when saving the description in local storage?
 
-hour9.on('click', handleSave);
+
+// $(document).ready(function() {
+//   $('button').on('click', function() {
+//     alert("you have clicked");
+//     $(this).css('background-color', 'red');
+//     localStorage.setItem("hour", "task");
+//     console.log(localStorage);
+//   });
+// });
+
+saveButton.onclick = function () {
+  var hourValue = hourTime.value;
+  var taskValue = taskInput.value;
+  console.log(taskValue);
+  console.log(hourValue);
+
+  if (taskValue) {
+    localStorage.setItem(hourValue, taskValue);
+  }
+};
 
 
-function handleEventSubmit(event) {
-  event.preventdefault
+
+
+
+// function readEventsFromStorage() {
+//   var events = localStorage.getItem('events');
+//   if (events) {
+//     events = JSON.parse(events);
+//   } else {
+//     events = [];
+//   }
+//   return events;
+// }
+
+// function printEventsData() {
+//   eventsDisplayElem
+// }
+
+function saveScheduleEvent(event) {
+  event.preventdefault();
+  //read user input
+  var hour9 = hour9Input.val().trim();
+  var events = readEventsFromStorage();
+  events.push(newEvents);
+  saveEventsToStorage(events);
+  printEventData();
+
 }
+
+
+// function saveEventsToStorage(events) {
+//   localStorage.setItem('events', JSON.stringify(events));
+//   console.log(events);
+// }
