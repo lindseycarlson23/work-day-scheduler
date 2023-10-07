@@ -29,19 +29,107 @@
 // handle displaying the time
 var dateDisplayElem = $("#currentDay");
 
-// var hour9Input = $("#hour-9");
-var taskInput = document.getElementById("taskInput");
-var saveButton = document.getElementById("saveButton");
-var hourTime = document.getElementById("hourTime");
-// var eventsDisplayElem = $('#')
-
 
 function displayDate() {
   var currentDate = dayjs().format('MMM DD, YYYY');
   dateDisplayElem.text(currentDate);
 };
 displayDate();
+
+
+function updateCalendar(){
+  $('#calendarContainer').children('div').each((index,item)=> {
+    var hour = parseInt($(item).attr("id").split("-")[1]);
+    var currentHour = dayjs().hour();
+    
+    // console.log(hour)
+    if (hour === currentHour) {
+      $(item).addClass("present");
+      $(item).removeClass("future");
+      $(item).removeClass("past");
+      // console.log(this)
+    }
+    //hour is past
+    else if (hour < currentHour) {
+      $(item).removeClass("present");
+      $(item).removeClass("future");
+      $(item).addClass("past");
+    }
+    //hour is future
+    else {
+      $(item).removeClass("present");
+      $(item).addClass("future");
+      $(item).removeClass("past");
+    }
+  });
+};
+
+
+$(document).ready(function() {
+  $('button').on('click', function() {
+    alert("you have clicked");
+    $(this).css('background-color', 'red');
+    var parentId = $(this).parent().attr("id");
+   
+   
+  var value = $(this).parent().children('textarea')[0].value.trim();
+
+    localStorage.setItem(parentId, value);
+  });
+
+  updateCalendar();
   
+
+});
+
+
+
+
+// var hour9Input = $("#hour-9");
+
+// var eventsDisplayElem = $('#')
+
+// function nineOclock() {
+//   var taskInput9 = document.getElementById("taskInput9");
+//   var saveButton9 = document.getElementById("saveButton9");
+//   var hourTime9 = document.getElementById("hourTime9");
+
+//   saveButton9.onclick = function () {
+//     var hourValue9 = hourTime9.value;
+//     var taskValue9 = taskInput9.value;
+//     console.log(taskValue9);
+//     console.log(hourValue9);
+  
+//     if (taskValue9) {
+//       localStorage.setItem("hour9", taskValue9);
+//     };
+//   };
+// };
+// nineOclock();
+
+// function tenOclock() {
+//   var taskInput10 = document.getElementById("taskInput10");
+//   var saveButton10 = document.getElementById("saveButton10");
+//   var hourTime10 = document.getElementById("hourTime10");
+
+//   saveButton10.onclick = function () {
+//     var hourValue10 = hourTime10.value;
+//     var taskValue10 = taskInput10.value;
+//     console.log(taskValue10);
+//     console.log(hourValue10);
+  
+//     if (taskValue10) {
+//       localStorage.setItem("hour10", taskValue10);
+//     };
+//   };
+// };
+// tenOclock();
+ 
+// function renderTask9() {
+//   var lastTask9 = JSON.parse(localStorage.getItem("taskInput9"))
+// }
+// renderTask9
+
 // TODO: Add a listener for click events on the save button. This code should
 //     // use the id in the containing time-block as a key to save the user input in
 //     // local storage. HINT: What does `this` reference in the click listener
@@ -50,25 +138,9 @@ displayDate();
 //     // useful when saving the description in local storage?
 
 
-// $(document).ready(function() {
-//   $('button').on('click', function() {
-//     alert("you have clicked");
-//     $(this).css('background-color', 'red');
-//     localStorage.setItem("hour", "task");
-//     console.log(localStorage);
-//   });
-// });
 
-saveButton.onclick = function () {
-  var hourValue = hourTime.value;
-  var taskValue = taskInput.value;
-  console.log(taskValue);
-  console.log(hourValue);
 
-  if (taskValue) {
-    localStorage.setItem(hourValue, taskValue);
-  }
-};
+
 
 
 
@@ -88,16 +160,16 @@ saveButton.onclick = function () {
 //   eventsDisplayElem
 // }
 
-function saveScheduleEvent(event) {
-  event.preventdefault();
-  //read user input
-  var hour9 = hour9Input.val().trim();
-  var events = readEventsFromStorage();
-  events.push(newEvents);
-  saveEventsToStorage(events);
-  printEventData();
+// function saveScheduleEvent(event) {
+//   event.preventdefault();
+//   //read user input
+//   var hour9 = hour9Input.val().trim();
+//   var events = readEventsFromStorage();
+//   events.push(newEvents);
+//   saveEventsToStorage(events);
+//   printEventData();
 
-}
+// }
 
 
 // function saveEventsToStorage(events) {
