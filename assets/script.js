@@ -65,70 +65,43 @@ function updateCalendar(){
 };
 
 
+
 $(document).ready(function() {
   $('button').on('click', function() {
-    alert("you have clicked");
-    $(this).css('background-color', 'red');
     var parentId = $(this).parent().attr("id");
-   
-   
-  var value = $(this).parent().children('textarea')[0].value.trim();
-
+    var value = $(this).parent().children('textarea')[0].value.trim();
     localStorage.setItem(parentId, value);
   });
 
   updateCalendar();
-  
+  loadCalendar();
 
 });
 
+function loadCalendar() {
+  for (var key in localStorage){
+    console.log(key)
+    if (key.startsWith("hourTime-")) {
+      $("#" + key).children('textarea')[0].value=localStorage.getItem(key);
+    }
+ }
+}
 
 
+// $("hourTime-9 .textArea").val(localStorage.getItem("note"));
+// var storedNote =JSON.parse(localStorage.getItem('note'));
+// console.log(storedNote)
 
-// var hour9Input = $("#hour-9");
+//how do I get all the values to load and go to the right place
+//how do I get them to store as an array
+// $("hourTime-9").textArea.value = storedNote; //put in chat GPT and ask
 
-// var eventsDisplayElem = $('#')
+// $(document).ready(function () {
+//   var storedNote = localstorage.getItem('hourtime-9');
+//   if ()
+// })
 
-// function nineOclock() {
-//   var taskInput9 = document.getElementById("taskInput9");
-//   var saveButton9 = document.getElementById("saveButton9");
-//   var hourTime9 = document.getElementById("hourTime9");
 
-//   saveButton9.onclick = function () {
-//     var hourValue9 = hourTime9.value;
-//     var taskValue9 = taskInput9.value;
-//     console.log(taskValue9);
-//     console.log(hourValue9);
-  
-//     if (taskValue9) {
-//       localStorage.setItem("hour9", taskValue9);
-//     };
-//   };
-// };
-// nineOclock();
-
-// function tenOclock() {
-//   var taskInput10 = document.getElementById("taskInput10");
-//   var saveButton10 = document.getElementById("saveButton10");
-//   var hourTime10 = document.getElementById("hourTime10");
-
-//   saveButton10.onclick = function () {
-//     var hourValue10 = hourTime10.value;
-//     var taskValue10 = taskInput10.value;
-//     console.log(taskValue10);
-//     console.log(hourValue10);
-  
-//     if (taskValue10) {
-//       localStorage.setItem("hour10", taskValue10);
-//     };
-//   };
-// };
-// tenOclock();
- 
-// function renderTask9() {
-//   var lastTask9 = JSON.parse(localStorage.getItem("taskInput9"))
-// }
-// renderTask9
 
 // TODO: Add a listener for click events on the save button. This code should
 //     // use the id in the containing time-block as a key to save the user input in
@@ -144,35 +117,3 @@ $(document).ready(function() {
 
 
 
-
-
-// function readEventsFromStorage() {
-//   var events = localStorage.getItem('events');
-//   if (events) {
-//     events = JSON.parse(events);
-//   } else {
-//     events = [];
-//   }
-//   return events;
-// }
-
-// function printEventsData() {
-//   eventsDisplayElem
-// }
-
-// function saveScheduleEvent(event) {
-//   event.preventdefault();
-//   //read user input
-//   var hour9 = hour9Input.val().trim();
-//   var events = readEventsFromStorage();
-//   events.push(newEvents);
-//   saveEventsToStorage(events);
-//   printEventData();
-
-// }
-
-
-// function saveEventsToStorage(events) {
-//   localStorage.setItem('events', JSON.stringify(events));
-//   console.log(events);
-// }
